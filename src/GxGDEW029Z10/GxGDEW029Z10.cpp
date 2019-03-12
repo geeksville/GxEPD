@@ -469,7 +469,7 @@ void GxGDEW029Z10::_waitWhileBusy(const char* comment)
   {
     if (digitalRead(_busy) == 1) break;
     delay(1);
-    if (micros() - start > 20000000) // >14.9s !
+    if (micros() - start > 30000000) // >14.9s ! (also works for GDEW029C32 but it is quite slow, needs 26.7s)
     {
       if (_diag_enabled) Serial.println("Busy Timeout!");
       break;
@@ -502,9 +502,9 @@ void GxGDEW029Z10::_wakeUp()
   }
 
   _writeCommand(0x06);
-  _writeData (0x17);
-  _writeData (0x17);
-  _writeData (0x17);
+  _writeData (0x97);
+  _writeData (0x97);
+  _writeData (0x97);
   _writeCommand(0x04);
   _waitWhileBusy("_wakeUp Power On");
   _writeCommand(0X00);
